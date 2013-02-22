@@ -14,4 +14,6 @@
 // Adds the given delegate implementation to the list of observers
 - (void)addDelegate:(id)delegate;
 
+- (void)fsa;
+
 @end

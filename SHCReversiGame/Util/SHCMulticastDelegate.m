@@ -14,6 +14,10 @@
     NSMutableArray* _delegates;
 }
 
+
+- (void)fsa {
+    
+}
 - (id)init
 {
     if (self = [super init])

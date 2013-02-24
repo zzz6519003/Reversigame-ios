@@ -41,6 +41,7 @@
         self.backgroundColor = [UIColor clearColor];
         
         [self update];
+        [_board.boardDelegate addDelegate:self];    // This ensures that when each square is created, it is added to the multi-casting delegate; in this manner, all 64 squares will be informed of state changes. With this code in place, any change to the board state will be immediately reflected in the UI. This will come in handy very shortly.
 
     }
     return self;
@@ -60,5 +61,11 @@
     // Drawing code
 }
 */
+
+- (void)cellStateChanged:(BoardCellState)state forColumn:(NSInteger)column andRow:(NSInteger)row {
+    if ((column == _column && row == _row) || (column == -1 && row == -1)) {
+        [self update];
+    }
+}
 
 @end

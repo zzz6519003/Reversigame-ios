@@ -12,12 +12,18 @@
 
 @implementation SHCBoard {
     NSUInteger _board[8][8];
+    id<SHCBoardDelegate> _delegate;
 }
 
 
 - (id)init {
     if (self = [super init]) {
         [self clearBoard];
+        _boardDelegate = [[SHCMulticastDelegate alloc] init];
+        /*
+         The reason that the multicast delegate is being assigned to an instance variable that conforms to the SHCBoardDelegate property is because the multicasting implementation is entirely generic – which allows it to multicast delegates which are defined by any protocol.
+         */
+        _delegate = (id)_boardDelegate;
     }
     return self;
 }
@@ -34,6 +40,16 @@
     [self checkBoundsForColumn:column andRow:row];
 
     _board[column][row] = state;
+    
+    [self informDelegateOfStateChanged:state forColumn:column andRow:row];
+}
+
+-(void)informDelegateOfStateChanged:(BoardCellState) state forColumn:(NSInteger)column andRow:(NSInteger) row {
+#warning zzz
+    /*if there's no if...*/
+    if ([_delegate respondsToSelector:@selector(cellStateChanged:forColumn:andRow:)]) {
+        [_delegate cellStateChanged:state forColumn:column andRow:row];
+    }
 }
 
 - (void)checkBoundsForColumn:(NSInteger)column andRow:(NSInteger)row {
@@ -45,7 +61,7 @@
 - (void)clearBoard
 {
     memset(_board, 0, sizeof(NSUInteger) * 8 * 8);
-    
+    [self informDelegateOfStateChanged:BoardCellStateEmpty forColumn:-1 andRow:-1];
 }
 
 

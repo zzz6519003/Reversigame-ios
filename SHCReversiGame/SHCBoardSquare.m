@@ -42,6 +42,8 @@
         
         [self update];
         [_board.boardDelegate addDelegate:self];    // This ensures that when each square is created, it is added to the multi-casting delegate; in this manner, all 64 squares will be informed of state changes. With this code in place, any change to the board state will be immediately reflected in the UI. This will come in handy very shortly.
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellTapped:)];
+        [self addGestureRecognizer:tapGestureRecognizer];
 
     }
     return self;
@@ -68,4 +70,9 @@
     }
 }
 
+- (void)cellTapped:(UITapGestureRecognizer *)recognizer {
+    if ([_board isValidMoveToColumn:_column andRow:_row]) {
+        [_board makeMoveToColumn:_column andRow:_row];
+    }
+}
 @end

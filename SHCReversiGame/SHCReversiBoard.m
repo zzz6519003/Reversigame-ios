@@ -93,15 +93,42 @@ BoardNavigationFunction BoardNavigationFunctionLeftDown = ^(NSInteger* c, NSInte
 
 - (BOOL)isValidMoveToColumn:(NSInteger)column andRow:(NSInteger)row {
     // check empty
-    if ([super cellStateAtColumn:column andRow:row] != BoardCellStateEmpty) {
-        return NO;
-    }
-    return YES;
+//    if ([super cellStateAtColumn:column andRow:row] != BoardCellStateEmpty) {
+//        return NO;
+//    }
+//    return YES;
+    
+    return [self isValidMoveToColumn:column andRow:row forState:self.nextMove];
+
 }
+- (BOOL)isValidMoveToColumn:(int)column andRow:(int)row forState:(BoardCellState)state {
+    if ([super cellStateAtColumn:column andRow:row] != BoardCellStateEmpty)
+        return NO;
+    // check each direction
+    for(int i=0;i<8;i++)
+    {
+        if ([self moveSurroundsCountersForColumn:column
+                                          andRow:row
+                          withNavigationFunction:_boardNavigationFunctions[i]
+                                         toState:state])
+        {
+            return YES;
+        }
+    }
+    
+    // if no directions are valid - then this is not a valid move
+    return NO;
+
+}
+// The above code uses the array of navigation functions to check each in turn to see if any of the opponent’s pieces are surrounded. Note that this method has been split into two parts – one which has a state argument, and the other that uses the nextMove property. You’ll see the reason for this shortly.
+
 
 - (void)makeMoveToColumn:(NSInteger)column andRow:(NSInteger)row {
     // place the playing piece at the given location
     [self setCellState:self.nextMove forColumn:column andRow:row];
+    for (int i = 0; i < 8; i++) {
+        [self flipOponnentsCountersForColumn:column andRow:row withNavigationFunction:_boardNavigationFunctions[i] toState:self.nextMove];
+    }
     _nextMove = [self invertState];
 }
 
@@ -155,4 +182,21 @@ BoardNavigationFunction BoardNavigationFunctionLeftDown = ^(NSInteger* c, NSInte
     }
     return NO;
 }
+
+- (void)flipOponnentsCountersForColumn:(int) column andRow:(int)row withNavigationFunction:(BoardNavigationFunction) navigationFunction toState:(BoardCellState) state {
+    // are any pieces surrounded in this direction?
+    if (![self moveSurroundsCountersForColumn:column andRow:row withNavigationFunction:navigationFunction toState:state]) {
+        return;
+    }
+    BoardCellState opponentsState = [self invertStateAndReturn:state];
+    BoardCellState currentCellState;
+    // flip counters until the edge of the boards is reached, or
+    // a piece of the current state is reached
+    do {
+        navigationFunction(&column, &row);
+        currentCellState = [super cellStateAtColumn:column andRow:row];
+        [self setCellState:state forColumn:column andRow:row];
+    } while ((column <= 7 && column >= 0) && (row <= 7 && row >= 0) && currentCellState == opponentsState);
+}
+
 @end

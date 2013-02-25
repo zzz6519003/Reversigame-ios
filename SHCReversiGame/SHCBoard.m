@@ -45,8 +45,6 @@
 }
 
 -(void)informDelegateOfStateChanged:(BoardCellState) state forColumn:(NSInteger)column andRow:(NSInteger) row {
-#warning zzz
-    /*if there's no if...*/
     if ([_delegate respondsToSelector:@selector(cellStateChanged:forColumn:andRow:)]) {
         [_delegate cellStateChanged:state forColumn:column andRow:row];
     }

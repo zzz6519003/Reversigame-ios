@@ -26,4 +26,6 @@
 // clears the entire board
 - (void)clearBoard;
 
+- (NSUInteger)countCellsWithState:(BoardCellState)state;
+
 @end

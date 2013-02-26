@@ -62,5 +62,17 @@
     [self informDelegateOfStateChanged:BoardCellStateEmpty forColumn:-1 andRow:-1];
 }
 
+- (NSUInteger)countCellsWithState:(BoardCellState)state {
+    int count = 0;
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if ([self cellStateAtColumn:i andRow:j] == state) {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
 
 @end

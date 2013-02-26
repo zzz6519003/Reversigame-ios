@@ -27,5 +27,7 @@
 // Makes the given move for the player who is currently taking their turn
 - (void)makeMoveToColumn:(NSInteger)column andRow:(NSInteger)row;
 
+// multicasts game state changes
+@property (readonly) SHCMulticastDelegate* reversiBoardDelegate;
 
 @end

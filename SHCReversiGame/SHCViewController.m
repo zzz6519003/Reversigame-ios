@@ -9,6 +9,8 @@
 #import "SHCViewController.h"
 #import "SHCReversiBoard.h"
 #import "SHCReversiBoardView.h"
+#import "SHCComputerOpponent.h"
+
 
 
 @interface SHCViewController ()
@@ -18,6 +20,7 @@
 @implementation SHCViewController
 {
     SHCReversiBoard* _board;
+    SHCComputerOpponent* _computer;
 }
 
 - (void)viewDidLoad
@@ -40,6 +43,12 @@
     
     [self gameStateChanged];
     [_board.reversiBoardDelegate addDelegate:self];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(restartGame)];
+    [self.view addGestureRecognizer:tapGesture];
+    
+    _computer = [[SHCComputerOpponent alloc] initWithBoard:_board andColor:BoardCellStateWhitePiece];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,6 +61,14 @@
 {
     _whiteScore.text = [NSString stringWithFormat:@"%d", _board.whiteScore];
     _blackScore.text = [NSString stringWithFormat:@"%d", _board.blackScore];
+    _gameOverImage.hidden = !_board.gameHasFinished;
+}
+
+- (void)restartGame {
+    if (_board.gameHasFinished) {
+        [_board setToInitialState];
+        [self gameStateChanged];
+    }
 }
 
 @end

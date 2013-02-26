@@ -74,5 +74,13 @@
     return count;
 }
 
+- (id)copyWithZone:(NSZone *)zone; {
+    // This makes a copy of the state of the board, using the C memcpy function to copy the 2D array containing the 8×8 playing field.
+    SHCBoard *board = [[[self class] allocWithZone:zone] init];
+    memcpy(board ->_board, _board, sizeof(NSUInteger) * 8 * 8);
+    board ->_boardDelegate = [[SHCMulticastDelegate alloc] init];
+    board ->_delegate = (id)_boardDelegate;
+    return board;
+}
 
 @end

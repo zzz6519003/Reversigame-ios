@@ -8,7 +8,7 @@
 
 #import "SHCBoard.h"
 
-@interface SHCReversiBoard : SHCBoard
+@interface SHCReversiBoard : SHCBoard <NSCopying>
 // the white player's score
 @property (readonly) NSInteger whiteScore;
 
@@ -29,5 +29,8 @@
 
 // multicasts game state changes
 @property (readonly) SHCMulticastDelegate* reversiBoardDelegate;
+
+// indicates whether the game has finished
+@property (readonly) BOOL gameHasFinished;
 
 @end

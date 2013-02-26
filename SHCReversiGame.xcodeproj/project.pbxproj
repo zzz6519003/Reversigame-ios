@@ -35,6 +35,7 @@
 		BA01859F16D7116100B98B6A /* SHCReversiBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = BA01859E16D7116100B98B6A /* SHCReversiBoard.m */; };
 		BA0185A216D7128F00B98B6A /* SHCBoardSquare.m in Sources */ = {isa = PBXBuildFile; fileRef = BA0185A116D7128F00B98B6A /* SHCBoardSquare.m */; };
 		BA0185A516D7161400B98B6A /* SHCReversiBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = BA0185A416D7161300B98B6A /* SHCReversiBoardView.m */; };
+		BA8DCFB516DD5193003DDA1D /* SHCComputerOpponent.m in Sources */ = {isa = PBXBuildFile; fileRef = BA8DCFB416DD5193003DDA1D /* SHCComputerOpponent.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,8 @@
 		BA0185A416D7161300B98B6A /* SHCReversiBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHCReversiBoardView.m; sourceTree = "<group>"; };
 		BA0185A616D71EF300B98B6A /* SHCBoardDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHCBoardDelegate.h; sourceTree = "<group>"; };
 		BA30F5FE16DBF7E800FCD889 /* SHCReversiBoardDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHCReversiBoardDelegate.h; sourceTree = "<group>"; };
+		BA8DCFB316DD5193003DDA1D /* SHCComputerOpponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHCComputerOpponent.h; sourceTree = "<group>"; };
+		BA8DCFB416DD5193003DDA1D /* SHCComputerOpponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHCComputerOpponent.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +218,8 @@
 				BA01859E16D7116100B98B6A /* SHCReversiBoard.m */,
 				BA0185A616D71EF300B98B6A /* SHCBoardDelegate.h */,
 				BA30F5FE16DBF7E800FCD889 /* SHCReversiBoardDelegate.h */,
+				BA8DCFB316DD5193003DDA1D /* SHCComputerOpponent.h */,
+				BA8DCFB416DD5193003DDA1D /* SHCComputerOpponent.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -384,6 +389,7 @@
 				BA01859F16D7116100B98B6A /* SHCReversiBoard.m in Sources */,
 				BA0185A216D7128F00B98B6A /* SHCBoardSquare.m in Sources */,
 				BA0185A516D7161400B98B6A /* SHCReversiBoardView.m in Sources */,
+				BA8DCFB516DD5193003DDA1D /* SHCComputerOpponent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -136,7 +136,10 @@ BoardNavigationFunction BoardNavigationFunctionLeftDown = ^(NSInteger* c, NSInte
     for (int i = 0; i < 8; i++) {
         [self flipOponnentsCountersForColumn:column andRow:row withNavigationFunction:_boardNavigationFunctions[i] toState:self.nextMove];
     }
-    _nextMove = [self invertState];
+//    _nextMove = [self invertState];
+    [self switchTurns];
+    
+    _gameHasFinished = [self hasGameFinished];
     _whiteScore = [self countCellsWithState:BoardCellStateWhitePiece];
     _blackScore = [self countCellsWithState:BoardCellStateBlackPiece];
 
@@ -210,6 +213,39 @@ BoardNavigationFunction BoardNavigationFunctionLeftDown = ^(NSInteger* c, NSInte
         currentCellState = [super cellStateAtColumn:column andRow:row];
         [self setCellState:state forColumn:column andRow:row];
     } while ((column <= 7 && column >= 0) && (row <= 7 && row >= 0) && currentCellState == opponentsState);
+}
+
+- (BOOL)hasGameFinished {
+    return ![self canPlayerMakeAMove:BoardCellStateBlackPiece] && ![self canPlayerMakeAMove:BoardCellStateWhitePiece];
+}
+
+- (BOOL)canPlayerMakeAMove:(BoardCellState)state {
+    for (int row = 0; row < 8; row++)
+    {
+        for (int col = 0; col < 8; col++)
+        {
+            if ([self isValidMoveToColumn:col andRow:row forState:state]) {
+                return YES;
+            }
+        }
+    }
+    return NO;
+}
+
+// The last rule to implement is that if one player cannot make a move, play switches back to the opponent.
+- (void)switchTurns {
+    BoardCellState nextOne = [self invertStateAndReturn:self.nextMove];
+    if ([self canPlayerMakeAMove:nextOne]) {
+        _nextMove = nextOne;
+    }
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    SHCReversiBoard *board = [super copyWithZone:zone];
+    board ->_nextMove = _nextMove;
+    board ->_whiteScore = _whiteScore;
+    board ->_blackScore = _blackScore;
+    return board;
 }
 
 @end

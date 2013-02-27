@@ -47,7 +47,14 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(restartGame)];
     [self.view addGestureRecognizer:tapGesture];
     
-    _computer = [[SHCComputerOpponent alloc] initWithBoard:_board andColor:BoardCellStateWhitePiece];
+//    _computer = [[SHCComputerOpponent alloc] initWithBoard:_board andColor:BoardCellStateWhitePiece];
+    _computer = [[SHCComputerOpponent alloc] initWithBoard:_board
+                                                     andColor:BoardCellStateWhitePiece
+                                                  maxDepth:5];
+    _computer = [[SHCComputerOpponent alloc] initWithBoard:_board
+                                                  andColor:BoardCellStateBlackPiece
+                                                  maxDepth:5];
+
 
 }
 
